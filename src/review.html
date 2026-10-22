@@ -1,0 +1,58 @@
+<title>MAC TV Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Belleza&family=Jost:wght@400;500;600&display=swap">
+<style>/*TV_CSS*/</style>
+<style>/*REVIEW_CSS*/</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="mark"><i></i>MAC TV review</div>
+    <label class="sr" for="weekSel" hidden>Week</label>
+    <select id="weekSel" aria-label="Week"></select>
+    <span class="progress" id="progress"></span>
+    <span class="grow"></span>
+    <button type="button" id="approveRest">Approve the rest</button>
+    <button type="button" class="primary" id="publish">Publish now</button>
+  </div>
+  <nav class="tabs" aria-label="Sections"><div class="wrap" role="tablist">
+    <button type="button" role="tab" data-tab="week" aria-selected="true">This week</button>
+    <button type="button" role="tab" data-tab="always" aria-selected="false">Always on</button>
+  </div></nav>
+</header>
+
+<div class="wrap" id="weekView">
+  <p class="intro"><span id="weekNote"></span> Approve what should air. Fix sends your note to Claude, who rewrites it before publishing and holds anything it can't fix. Cut drops it. Anything left undecided stays off the TV. Approved items go live Monday morning, or now with Publish.</p>
+  <div class="tool">
+    <button type="button" class="chip" data-zone="all" aria-pressed="true">All</button>
+    <button type="button" class="chip" data-zone="main" aria-pressed="false">Main screen</button>
+    <button type="button" class="chip" data-zone="side" aria-pressed="false">Side third</button>
+    <button type="button" class="chip" data-zone="crawler" aria-pressed="false">Crawler</button>
+    <button type="button" class="chip" id="undecided" aria-pressed="false">Undecided only</button>
+  </div>
+  <div class="status" id="status" role="status"></div>
+  <main class="list" id="list"><div class="empty"><b>Loading…</b></div></main>
+</div>
+
+<div class="wrap" id="alwaysView" hidden>
+  <main class="list">
+    <section class="panel">
+      <h3>Standing crawler lines</h3>
+      <p class="hint">These run every week alongside the weekly lines. Uncheck one to pause it, for example swap "We always accept new patients" for "New patients by referral only."</p>
+      <div id="standing"></div>
+      <div><button type="button" class="chip" id="addLine">Add a line</button></div>
+    </section>
+    <section class="panel">
+      <h3>YouTube Shorts</h3>
+      <p class="hint">One link per line. One plays full screen every few minutes, with the music paused.</p>
+      <textarea id="videos" rows="5" placeholder="https://youtube.com/shorts/…"></textarea>
+      <div class="row"><label for="vmin">Minutes between Shorts</label><input id="vmin" type="number" min="5" max="60" style="width:90px"></div>
+    </section>
+  </main>
+</div>
+
+<script>/*QRCODE_JS*/</script>
+<script>/*RENDER_JS*/</script>
+<script>window.MAC_LOGO = "/*LOGO*/";</script>
+<script>/*REVIEW_JS*/</script>

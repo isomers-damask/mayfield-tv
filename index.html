@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mayfield Advanced Chiro TV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Belleza&family=Jost:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="src/tv.css">
+<style>
+  html, body { height: 100%; margin: 0; background: #050913; overflow: hidden; }
+  [hidden] { display: none !important; }
+  #stage { position: absolute; left: 50%; top: 50%; transform-origin: center; }
+  .start { position: absolute; inset: 0; z-index: 20; background: radial-gradient(circle at 70% 20%, #1c4fb9, #06173f 60%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 46px; }
+  .start img { width: 640px; background: #fff; padding: 30px 40px; border-radius: 18px; }
+  .start h2 { margin: 0; font: 400 72px/1 var(--font-display); color: #fff; }
+  .start button { font: 600 44px/1 var(--font-body); color: #fff; background: var(--orange); border: 0; border-radius: 60px; padding: 30px 90px; cursor: pointer; }
+  .start button:focus-visible { outline: 6px solid #fff; outline-offset: 6px; }
+  .start .hint { font: 400 26px/1.4 var(--font-body); color: var(--muted); }
+  .controls { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 30; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px; border-radius: 14px; background: rgba(8,14,34,.92); border: 1px solid rgba(255,255,255,.15); opacity: 0; transition: opacity .4s; max-width: calc(100vw - 32px); }
+  .controls.show { opacity: 1; }
+  .controls button, .controls select { font: 500 14px/1 "Jost", "Segoe UI", sans-serif; color: #fff; background: #1b2a55; border: 1px solid rgba(255,255,255,.2); border-radius: 8px; padding: 9px 12px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="sky"></div>
+  <video class="bgv" id="bgA" muted playsinline preload="auto"></video>
+  <video class="bgv" id="bgB" muted playsinline preload="auto"></video>
+  <div class="bgshade"></div><div class="sun"></div>
+  <canvas class="fx" id="fx" width="1920" height="1080"></canvas>
+
+  <aside class="rail">
+    <div class="rail-slot"><div class="side" id="sideA"></div><div class="side" id="sideB"></div></div>
+    <div class="logo-plate"><img src="media/logo.png" alt="Mayfield Advanced Chiropractic"></div>
+  </aside>
+  <section class="main" id="main"></section>
+
+  <div class="clockchip"><span id="clock">--:--</span><span class="sep" id="wsep" hidden></span><span id="weather" hidden></span></div>
+
+  <div class="vbreak" id="vbreak">
+    <div class="vside"><h2>From our YouTube channel</h2><p id="vtitle"></p></div>
+    <div class="vframe" id="vframe"></div>
+    <div class="vside"><img src="media/logo.png" alt=""><p>Watch more on YouTube<br><b>@mayfieldadvancedchiropractic</b></p></div>
+  </div>
+
+  <div class="crawler"><div class="crawl-track" id="crawl"></div></div>
+
+  <div class="start" id="start">
+    <img src="media/logo.png" alt="Mayfield Advanced Chiropractic">
+    <h2>Mayfield Advanced Chiro TV</h2>
+    <button id="go" type="button">Play</button>
+    <div class="hint">Starts on its own in <span id="count">15</span> seconds</div>
+  </div>
+</div>
+
+<div class="controls" id="controls" aria-label="Display controls">
+  <button type="button" id="c-prev">◀ Prev</button>
+  <button type="button" id="c-next">Next ▶</button>
+  <button type="button" id="c-music">Music: on</button>
+  <select id="c-theme" aria-label="Theme month"></select>
+  <button type="button" id="c-video">Test video break</button>
+  <button type="button" id="c-full">Full screen</button>
+</div>
+
+<script src="lib/qrcode.js"></script>
+<script src="content/fallback.js"></script>
+<script src="src/render.js"></script>
+<script src="src/player.js"></script>
+</body>
+</html>
