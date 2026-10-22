@@ -69,7 +69,8 @@
 
   function renderMain(el, item, now) {
     const lay = LAYOUTS[item.layout] ? item.layout : "split";
-    el.className = "main L-" + lay;
+    const long = ((item.body || "") + (item.caption || "")).length > 190;
+    el.className = "main L-" + lay + (lay === "bignum" && long ? " dense" : "");
     el.innerHTML = LAYOUTS[lay](item, now);
   }
 
