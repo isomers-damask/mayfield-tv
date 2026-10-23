@@ -1,7 +1,187 @@
 {
  "tracks": [
-  {"file": "media/music/quiet-alignment.mp3", "title": "Quiet Alignment", "seconds": 180, "mood": "calm", "months": [1,2,3,4,5,6,7,8,9,10,11,12]},
-  {"file": "media/loop_ambient.mp3", "title": "Lobby Loop", "seconds": 60, "mood": "warm", "months": [1,2,3,4,5,6,7,8,9,10,11]},
-  {"file": "media/loop_christmas.mp3", "title": "Silent Night (lobby arrangement)", "seconds": 51, "mood": "warm", "months": [12]}
+  {
+   "file": "media/music/bayou-morning.mp3",
+   "title": "Bayou Morning",
+   "seconds": 175,
+   "mood": "calm",
+   "months": [
+    1,
+    3,
+    4,
+    6,
+    9
+   ]
+  },
+  {
+   "file": "media/music/still-water.mp3",
+   "title": "Still Water",
+   "seconds": 176,
+   "mood": "calm",
+   "months": [
+    1,
+    2,
+    8,
+    11,
+    12
+   ]
+  },
+  {
+   "file": "media/music/cane-field-breeze.mp3",
+   "title": "Cane Field Breeze",
+   "seconds": 169,
+   "mood": "bright",
+   "months": [
+    3,
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "file": "media/music/porch-light.mp3",
+   "title": "Porch Light",
+   "seconds": 191,
+   "mood": "evening",
+   "months": [
+    2,
+    7,
+    8,
+    9,
+    10
+   ]
+  },
+  {
+   "file": "media/music/xmas-the-first-noel.mp3",
+   "title": "The First Noel",
+   "seconds": 163,
+   "mood": "warm",
+   "months": [
+    12
+   ]
+  },
+  {
+   "file": "media/music/xmas-o-christmas-tree.mp3",
+   "title": "O Christmas Tree",
+   "seconds": 159,
+   "mood": "warm",
+   "months": [
+    12
+   ]
+  },
+  {
+   "file": "media/music/xmas-silent-night.mp3",
+   "title": "Silent Night",
+   "seconds": 180,
+   "mood": "calm",
+   "months": [
+    12
+   ]
+  },
+  {
+   "file": "media/music/cypress-shade.mp3",
+   "title": "Cypress Shade",
+   "seconds": 169,
+   "mood": "evening",
+   "months": [
+    1,
+    9,
+    10,
+    11
+   ]
+  },
+  {
+   "file": "media/music/live-oak-waltz.mp3",
+   "title": "Live Oak Waltz",
+   "seconds": 179,
+   "mood": "warm",
+   "months": [
+    4,
+    5,
+    9,
+    10,
+    11
+   ]
+  },
+  {
+   "file": "media/music/lamplight.mp3",
+   "title": "Lamplight",
+   "seconds": 182,
+   "mood": "evening",
+   "months": [
+    1,
+    2,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "file": "media/music/magnolia-hour.mp3",
+   "title": "Magnolia Hour",
+   "seconds": 182,
+   "mood": "warm",
+   "months": [
+    3,
+    4,
+    5,
+    7
+   ]
+  },
+  {
+   "file": "media/music/slow-ferry.mp3",
+   "title": "Slow Ferry",
+   "seconds": 179,
+   "mood": "warm",
+   "months": [
+    2,
+    6,
+    7,
+    8,
+    10
+   ]
+  },
+  {
+   "file": "media/music/gulf-light.mp3",
+   "title": "Gulf Light",
+   "seconds": 188,
+   "mood": "bright",
+   "months": [
+    3,
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "file": "media/music/quiet-alignment.mp3",
+   "title": "Quiet Alignment",
+   "seconds": 180,
+   "mood": "calm",
+   "months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ]
+  },
+  {
+   "file": "media/loop_christmas.mp3",
+   "title": "Silent Night (lobby arrangement)",
+   "seconds": 51,
+   "mood": "warm",
+   "months": [
+    12
+   ]
+  }
  ]
 }

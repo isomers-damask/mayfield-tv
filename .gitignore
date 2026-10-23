@@ -2,3 +2,4 @@ dist/
 __pycache__/
 .DS_Store
 content/weeks/
+media/music/_tracks.json
