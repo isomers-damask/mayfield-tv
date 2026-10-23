@@ -53,16 +53,51 @@
  "videos": [],
  "backgrounds": {
   "1": [
-   "media/jan-A-cypress-fog.mp4"
+   "media/jan-A-cypress-fog.mp4",
+   "media/jan-B-pine-sunrise.mp4"
+  ],
+  "2": [
+   "media/feb-A-mardi-gras-street.mp4"
+  ],
+  "3": [
+   "media/mar-A-azaleas-live-oak.mp4",
+   "media/mar-B-dew-clover.mp4"
+  ],
+  "4": [
+   "media/apr-A-irises-bayou.mp4",
+   "media/apr-B-rain-magnolia.mp4"
+  ],
+  "5": [
+   "media/may-A-magnolia-bloom.mp4",
+   "media/may-B-meadow-path.mp4"
+  ],
+  "6": [
+   "media/jun-A-sugarcane-clouds.mp4",
+   "media/jun-B-lake-dock.mp4"
+  ],
+  "7": [
+   "media/jul-A-sunflowers-sky.mp4",
+   "media/jul-B-fireworks-river.mp4"
+  ],
+  "8": [
+   "media/aug-A-soybean-heat.mp4",
+   "media/aug-B-track-sunrise.mp4"
   ],
   "9": [
-   "media/oct-A-meadow.mp4"
+   "media/sep-A-misty-pasture-oak.mp4",
+   "media/sep-B-stadium-lights.mp4"
   ],
   "10": [
-   "media/oct-A-meadow.mp4"
+   "media/oct-A-golden-hills.mp4",
+   "media/oct-B-falling-leaves.mp4"
   ],
   "11": [
-   "media/oct-A-meadow.mp4"
+   "media/nov-A-rice-field-egrets.mp4",
+   "media/nov-B-harvest-table.mp4"
+  ],
+  "12": [
+   "media/dec-A-live-oak-lights.mp4",
+   "media/dec-B-levee-bonfires.mp4"
   ]
  },
  "main": [
