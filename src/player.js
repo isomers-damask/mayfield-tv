@@ -48,7 +48,7 @@
     r.setProperty("--sky-top", t.top); r.setProperty("--sky-bot", t.bot); r.setProperty("--glow", t.glow);
     r.setProperty("--card-a", t.a); r.setProperty("--card-b", t.b);
     const clips = ((DATA && DATA.backgrounds) || {})[m] || [];
-    fx.set(clips.length ? "none" : t.fx); bg.set(m);   /* video clips replace the drawn effects */ music.pick(m === 12 ? "christmas" : "ambient");
+    fx.set(clips.length ? "none" : t.fx); bg.set(m);   /* video clips replace the drawn effects */ music.pick(m);
   }
 
   /* ---------- moving backgrounds ---------- */
@@ -104,29 +104,54 @@
     return { set };
   })();
 
-  /* ---------- music: seamless Web Audio loop; plain <audio> loop when files can't be fetched ---------- */
+  /* ---------- music: a shuffled playlist per month (content/music.json), crossfading between tracks.
+     Falls back to the two original loops if the playlist can't load. ---------- */
   const music = (() => {
-    const FILES = { ambient: "media/loop_ambient.mp3", christmas: "media/loop_christmas.mp3" };
-    let ctx, gain, src, el, cur = "ambient", wanted = true, buffers = {};
-    async function play() {
-      try {
-        if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); gain = ctx.createGain(); gain.gain.value = 0; gain.connect(ctx.destination); }
-        if (ctx.state === "suspended") await ctx.resume();
-        if (!buffers[cur]) { const r = await fetch(FILES[cur]); buffers[cur] = await ctx.decodeAudioData(await r.arrayBuffer()); }
-        if (src) { try { src.stop(); } catch (e) {} }
-        src = ctx.createBufferSource(); src.buffer = buffers[cur]; src.loop = true; src.connect(gain); src.start();
-        if (wanted) fade(.55, 2);
-      } catch (e) {
-        if (!el) { el = new Audio(); el.loop = true; }
-        el.src = FILES[cur]; el.volume = wanted ? .55 : 0; el.play().catch(() => {});
-      }
+    const LEVEL = .55, XF = 4;
+    const LOOPS = { ambient: "media/loop_ambient.mp3", christmas: "media/loop_christmas.mp3" };
+    const A = new Audio(), B = new Audio(); [A, B].forEach(a => { a.preload = "auto"; a.volume = 0; });
+    let front = A, tracks = null, month = new Date().getMonth() + 1, list = [], recent = [], wanted = true, ducked = false, started = false, crossing = false;
+    const fades = new WeakMap();
+    function fadeTo(el, v, sec, then) {
+      clearInterval(fades.get(el)); const from = el.volume, steps = Math.max(1, Math.round(sec * 20)); let k = 0;
+      fades.set(el, setInterval(() => { k++; el.volume = Math.max(0, Math.min(1, from + (v - from) * k / steps));
+        if (k >= steps) { clearInterval(fades.get(el)); if (then) then(); } }, 50));
     }
-    function fade(v, sec) { if (el) { el.volume = v; return; } if (!ctx) return; const t = ctx.currentTime;
-      gain.gain.cancelScheduledValues(t); gain.gain.setValueAtTime(gain.gain.value, t); gain.gain.linearRampToValueAtTime(v, t + sec); }
+    const target = () => (wanted && !ducked ? LEVEL : 0);
+    async function load() {
+      try { const r = await fetch("content/music.json?t=" + Date.now(), { cache: "no-store" }); if (r.ok) tracks = (await r.json()).tracks || []; } catch (e) {}
+    }
+    function buildList() {
+      const m = (tracks || []).filter(t => (t.months || []).includes(month)).map(t => t.file);
+      list = m.length ? m : [month === 12 ? LOOPS.christmas : LOOPS.ambient];
+      recent = recent.filter(f => list.includes(f));
+    }
+    function pickNext() {
+      const pool = list.filter(f => !recent.includes(f)); const choice = (pool.length ? pool : list)[Math.random() * (pool.length || list.length) | 0];
+      recent.push(choice); if (recent.length > Math.max(0, list.length - 1)) recent.shift();
+      return choice;
+    }
+    function playNext() {
+      if (!list.length) buildList();
+      const back = front === A ? B : A, file = pickNext(), single = list.length === 1;
+      crossing = true; back.src = file; back.loop = single; back.currentTime = 0; back.volume = 0;
+      back.play().then(() => {
+        fadeTo(back, target(), XF); const old = front; fadeTo(old, 0, XF, () => { old.pause(); });
+        front = back; setTimeout(() => { crossing = false; }, XF * 1000);
+      }).catch(() => { crossing = false; });
+    }
+    [A, B].forEach(el => el.addEventListener("timeupdate", () => {
+      if (el !== front || crossing || el.loop || !el.duration) return;
+      if (el.duration - el.currentTime < XF + .5) playNext();
+    }));
+    [A, B].forEach(el => el.addEventListener("ended", () => { if (el === front && !crossing) playNext(); }));
     return {
-      start: () => play(), pick(n) { if (n === cur) return; cur = n; if (ctx || el) play(); },
-      duck(on) { fade(on || !wanted ? 0 : .55, 1.2); }, toggle() { wanted = !wanted; this.duck(false); return wanted; },
-      get audible() { return wanted && ((ctx && ctx.state === "running") || (el && !el.paused)); }, wantOn() { wanted = true; },
+      async start() { if (started) { if (front.paused && front.src) front.play().catch(() => {}); return; } started = true; if (!tracks) await load(); buildList(); playNext(); },
+      pick(m) { if (typeof m !== "number") return; month = m; const before = list.join(); buildList(); if (started && list.join() !== before) playNext(); },
+      async reload() { await load(); const before = list.join(); buildList(); if (started && list.join() !== before) playNext(); },
+      duck(on) { ducked = !!on; fadeTo(front, target(), 1.2); },
+      toggle() { wanted = !wanted; fadeTo(front, target(), 1.2); return wanted; },
+      get audible() { return wanted && !front.paused; }, wantOn() { wanted = true; fadeTo(front, target(), 1.2); },
     };
   })();
 
@@ -246,7 +271,7 @@
   async function refresh() {
     const d = await fetchLive(); if (!d) return;
     const changed = !DATA || d.version !== DATA.version || d.published !== DATA.published;
-    DATA = d; if (changed) { pending = true; crawl.set(); applyTheme(themeMonth); }
+    DATA = d; if (changed) { pending = true; crawl.set(); applyTheme(themeMonth); music.reload(); }
   }
   setInterval(refresh, 15 * 60000);
   setInterval(() => { const h = new Date(); if (h.getHours() === 4 && h.getMinutes() < 15 && navigator.onLine) location.reload(); }, 15 * 60000);
