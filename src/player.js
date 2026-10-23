@@ -29,7 +29,7 @@
   /* ---------- month themes ---------- */
   const THEMES = {
     1:  { name: "January",  top: "#2c4f9a", bot: "#b9d3f0", glow: "rgba(255,255,255,.55)", a: "#0436a0", b: "#3d7bd8", fx: "mist" },
-    2:  { name: "February · Mardi Gras", top: "#24133f", bot: "#a7813d", glow: "rgba(255,206,120,.42)", a: "#3a1b66", b: "#1d6a49", fx: "beads" },
+    2:  { name: "February · Mardi Gras", top: "#24133f", bot: "#a7813d", glow: "rgba(255,206,120,.42)", a: "#3a1b66", b: "#1d6a49", fx: "bokeh" },
     3:  { name: "March",    top: "#2f6aa8", bot: "#c7e6c9", glow: "rgba(255,250,200,.55)", a: "#0f5a8a", b: "#3f9b6a", fx: "bokeh" },
     4:  { name: "April",    top: "#4a7cc4", bot: "#f3d6e2", glow: "rgba(255,240,245,.6)",  a: "#0436a0", b: "#c56a95", fx: "petals" },
     5:  { name: "May",      top: "#3d7fd0", bot: "#cfe9c4", glow: "rgba(255,244,190,.6)",  a: "#0d5aa8", b: "#4aa36b", fx: "motes" },
@@ -47,7 +47,8 @@
     const r = stage.style;
     r.setProperty("--sky-top", t.top); r.setProperty("--sky-bot", t.bot); r.setProperty("--glow", t.glow);
     r.setProperty("--card-a", t.a); r.setProperty("--card-b", t.b);
-    fx.set(t.fx); bg.set(m); music.pick(m === 12 ? "christmas" : "ambient");
+    const clips = ((DATA && DATA.backgrounds) || {})[m] || [];
+    fx.set(clips.length ? "none" : t.fx); bg.set(m);   /* video clips replace the drawn effects */ music.pick(m === 12 ? "christmas" : "ambient");
   }
 
   /* ---------- moving backgrounds ---------- */
@@ -78,37 +79,15 @@
       if (kind === "leaves") Object.assign(p, { r: 12 + Math.random() * 12, vy: .7 + Math.random() * 1, vx: .3 + Math.random() * .6, c: leafCols[Math.random() * 5 | 0] });
       if (kind === "petals") Object.assign(p, { r: 7 + Math.random() * 7, vy: .5 + Math.random() * .8, vx: .4 + Math.random() * .5, c: petalCols[Math.random() * 3 | 0] });
       if (kind === "mist")   Object.assign(p, { y: init ? Math.random() * 1080 : 1100, r: 120 + Math.random() * 160, vy: -(.05 + Math.random() * .1), vx: .15 + Math.random() * .25, c: "rgba(255,255,255,.035)" });
-      if (kind === "beads")  Object.assign(p, { y: init ? Math.random() * 1080 : 1120, r: 2 + Math.random() * 2.5, vy: -(.1 + Math.random() * .25), vx: (Math.random() - .5) * .2, c: "rgba(255,214,130,.55)" });
       if (kind === "bokeh" || kind === "motes") Object.assign(p, { y: init ? Math.random() * 1080 : 1120, r: kind === "bokeh" ? 20 + Math.random() * 40 : 2 + Math.random() * 3, vy: -(.15 + Math.random() * .35), vx: (Math.random() - .5) * .2, c: kind === "bokeh" ? "rgba(255,255,255,.10)" : "rgba(255,246,210,.7)" });
       return p;
     }
-    const BEAD = ["#8d42d6", "#2fb36a", "#f0c24a", "#f0c24a"]; let strands = [], nextToss = 0;
-    function toss(now) { const fromLeft = Math.random() < .5, depth = .7 + Math.random() * .3;
-      strands.push({ x: fromLeft ? 700 + Math.random() * 300 : 1500 + Math.random() * 300, y: 1120, vx: (fromLeft ? 1 : -1) * (2 + Math.random() * 3), vy: -(17 + Math.random() * 3), g: .26,
-        a: Math.random() * 6.28, va: (Math.random() - .5) * .08, ph: Math.random() * 6.28, vph: .05 + Math.random() * .05, s: depth, c: BEAD[Math.random() * 4 | 0], n: 26 + (Math.random() * 8 | 0) });
-      nextToss = now + 3200 + Math.random() * 3800; }
-    function drawBeads(now) {
-      if (now > nextToss && strands.length < 3) toss(now);
-      strands = strands.filter(st => st.y < 1250);
-      for (const st of strands) {
-        st.vy += st.g; st.x += st.vx; st.y += st.vy; st.a += st.va; st.ph += st.vph;
-        const rx = 100 * st.s, ry = 100 * st.s * (.25 + .75 * Math.abs(Math.cos(st.ph))), r = 9.5 * st.s;
-        ctx.save(); ctx.translate(st.x, st.y); ctx.rotate(st.a); ctx.globalAlpha = .75 + .25 * st.s;
-        for (let i = 0; i < st.n; i++) { const t = i / st.n * 6.283, bx = Math.cos(t) * rx, by = Math.sin(t) * ry + Math.pow(Math.sin(t / 2), 6) * 26 * st.s;
-          const gr = ctx.createRadialGradient(bx - r * .35, by - r * .35, r * .1, bx, by, r);
-          gr.addColorStop(0, "rgba(255,255,255,.95)"); gr.addColorStop(.35, st.c); gr.addColorStop(1, "rgba(20,10,30,.4)");
-          ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(bx, by, r, 0, 6.28); ctx.fill(); }
-        ctx.restore();
-      }
-      ctx.globalAlpha = 1;
-    }
-    function set(k) { if (k === kind) return; kind = k; strands = []; nextToss = performance.now() + 1200;
-      const n = reduced ? 10 : ({ snow: 90, leaves: 22, petals: 26, bokeh: 22, motes: 55, mist: 14, beads: 16 }[k] || 20);
+    function set(k) { if (k === kind) return; kind = k;
+      const n = k === "none" ? 0 : reduced ? 10 : ({ snow: 90, leaves: 22, petals: 26, bokeh: 22, motes: 55, mist: 14 }[k] || 20);
       parts = Array.from({ length: n }, () => make(true)); }
     function draw(now) {
       ctx.clearRect(0, 0, 1920, 1080);
       ctx.save(); ctx.beginPath(); ctx.rect(650, 0, 1270, 996); ctx.clip();
-      if (kind === "beads" && !reduced) drawBeads(now || performance.now());
       for (const p of parts) {
         p.ph += .01; p.x += p.vx + Math.sin(p.ph) * (kind === "snow" ? .3 : kind === "mist" ? .1 : .6); p.y += p.vy; p.a += p.va;
         if (p.y > 1110 || p.y < -300 || p.x > 2100) Object.assign(p, make(false));
@@ -267,7 +246,7 @@
   async function refresh() {
     const d = await fetchLive(); if (!d) return;
     const changed = !DATA || d.version !== DATA.version || d.published !== DATA.published;
-    DATA = d; if (changed) { pending = true; crawl.set(); bg.set(themeMonth); }
+    DATA = d; if (changed) { pending = true; crawl.set(); applyTheme(themeMonth); }
   }
   setInterval(refresh, 15 * 60000);
   setInterval(() => { const h = new Date(); if (h.getHours() === 4 && h.getMinutes() < 15 && navigator.onLine) location.reload(); }, 15 * 60000);
