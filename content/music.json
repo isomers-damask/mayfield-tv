@@ -1,1 +1,7 @@
-{"tracks": []}
+{
+ "tracks": [
+  {"file": "media/music/quiet-alignment.mp3", "title": "Quiet Alignment", "seconds": 180, "mood": "calm", "months": [1,2,3,4,5,6,7,8,9,10,11,12]},
+  {"file": "media/loop_ambient.mp3", "title": "Lobby Loop", "seconds": 60, "mood": "warm", "months": [1,2,3,4,5,6,7,8,9,10,11]},
+  {"file": "media/loop_christmas.mp3", "title": "Silent Night (lobby arrangement)", "seconds": 51, "mood": "warm", "months": [12]}
+ ]
+}
