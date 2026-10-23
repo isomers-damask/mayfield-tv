@@ -84,6 +84,8 @@
     ctx = ctx || {};
     let h = "";
     const t = item.layout;
+    const qrMode = t === "qr" || (item.qr && item.qr.url && t !== "stat");
+    el.classList.toggle("center", !!qrMode);
     if (t === "qr" || (item.qr && item.qr.url && t !== "stat")) {
       h = `${nn(item.eyebrow) ? `<div class="eyebrow">${esc(item.eyebrow)}</div>` : `<div class="eyebrow">Scan with your phone camera</div>`}
         ${nn(item.title) ? `<h3 class="s-title">${esc(item.title)}</h3>` : ""}

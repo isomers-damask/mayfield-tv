@@ -32,6 +32,8 @@
 .rail-slot { position: relative; flex: 1; }
 .side { position: absolute; inset: 0; padding: 88px 64px 40px 80px; display: flex; flex-direction: column; gap: 30px; opacity: 0; transition: opacity .9s ease; }
 .side.on { opacity: 1; }
+.side.center { align-items: center; justify-content: center; text-align: center; padding: 40px 50px; }
+.side.center .qrbox { align-self: center; width: 380px; }
 .side .eyebrow { font: 500 22px/1 var(--font-body); letter-spacing: .22em; text-transform: uppercase; color: var(--lavender); }
 .side .s-title { margin: 0; font: 400 58px/1.12 var(--font-display); color: var(--orange); text-wrap: balance; }
 .side .s-text { margin: 0; font: 400 36px/1.4 var(--font-body); color: var(--text); }
