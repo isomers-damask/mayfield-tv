@@ -1,6 +1,6 @@
 {
  "version": "2026-W43",
- "published": "2026-10-22T05:09:35+00:00",
+ "published": "2026-10-23T04:32:52+00:00",
  "settings": {
   "location": {
    "name": "Alexandria",
@@ -571,5 +571,13 @@
   }
  ],
  "side": [],
- "crawler": []
+ "crawler": [],
+ "spots": [
+  {
+   "id": "shockwave-rpw-v3",
+   "file": "media/spots/shockwave-rpw-v3.mp4",
+   "title": "Radial Pressure Wave Therapy",
+   "on": true
+  }
+ ]
 }

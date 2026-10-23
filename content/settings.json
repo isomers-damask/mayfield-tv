@@ -96,5 +96,13 @@
    "media/dec-A-live-oak-lights.mp4",
    "media/dec-B-levee-bonfires.mp4"
   ]
- }
+ },
+ "spots": [
+  {
+   "id": "shockwave-rpw-v3",
+   "file": "media/spots/shockwave-rpw-v3.mp4",
+   "title": "Radial Pressure Wave Therapy",
+   "on": true
+  }
+ ]
 }

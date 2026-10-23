@@ -168,6 +168,9 @@
 .crawl-track .dot { color: var(--orange); margin: 0 38px; font-size: 30px; }
 .vbreak { position: absolute; inset: 0 0 84px 0; z-index: 5; background: linear-gradient(160deg, var(--navy-deep), var(--navy)); display: grid; grid-template-columns: 1fr 560px 1fr; align-items: center; opacity: 0; pointer-events: none; transition: opacity .8s; }
 .vbreak.on { opacity: 1; pointer-events: auto; }
+.spot { position: absolute; left: 0; top: 0; width: 1920px; height: 996px; z-index: 5; background: #000; opacity: 0; pointer-events: none; transition: opacity .8s; }
+.spot.on { opacity: 1; }
+.spot video { width: 100%; height: 100%; object-fit: contain; display: block; }
 .vside { padding: 0 70px; display: flex; flex-direction: column; gap: 22px; }
 .vside h2 { margin: 0; font: 400 54px/1.15 var(--font-display); color: var(--orange); }
 .vside p { margin: 0; font: 400 32px/1.4 var(--font-body); color: var(--text); }

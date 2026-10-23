@@ -206,8 +206,7 @@
   }
   function next() {
     if (!themeLocked) { const m = new Date().getMonth() + 1; if (m !== themeMonth) { applyTheme(m); pending = true; } }
-    const vids = (DATA && DATA.videos) || [];
-    if (Date.now() >= nextVideoAt && vids.length) return videoBreak();
+    if (Date.now() >= nextVideoAt && breakQueue().length) return videoBreak();
     show(1);
   }
 
@@ -222,17 +221,34 @@
       setTimeout(() => res(!!(window.YT && YT.Player)), 6000); });
     return ytReady;
   }
+  /* Breaks rotate between YouTube Shorts (settings "videos") and the clinic's own spots (settings "spots", local mp4s). */
+  function breakQueue() {
+    const shorts = ((DATA && DATA.videos) || []).map(v => ({ kind: "yt", v })), spots = ((DATA && DATA.spots) || []).filter(s => s.on !== false).map(v => ({ kind: "spot", v }));
+    const out = [], n = Math.max(shorts.length, spots.length);
+    for (let i = 0; i < n; i++) { if (spots[i]) out.push(spots[i]); if (shorts[i]) out.push(shorts[i]); }
+    return out;
+  }
+  function playSpot(sp, finish) {
+    const box = $("spot"), v = $("spotv"); let done = false;
+    const end = () => { if (done) return; done = true; box.classList.remove("on"); v.pause(); v.removeAttribute("src"); v.load(); finish(true); };
+    v.src = sp.file; v.currentTime = 0; v.muted = false; box.classList.add("on");
+    v.onended = end; v.onerror = end; setTimeout(end, 180000);
+    v.play().catch(() => { v.muted = true; v.play().catch(end); });
+  }
   async function videoBreak(demo) {
     clearTimeout(timer); nextVideoAt = Date.now() + everyMin() * 60000;
-    const vids = (DATA && DATA.videos) || [], vb = $("vbreak"), frame = $("vframe");
-    const v = vids.length ? vids[vIdx++ % vids.length] : null, id = v ? ytId(v.id || v) : null;
+    const q = breakQueue(), vb = $("vbreak"), frame = $("vframe");
+    const item = q.length ? q[vIdx++ % q.length] : null;
+    music.duck(true);
+    const finish = spot => { if (!spot) { vb.classList.remove("on"); frame.innerHTML = ""; } music.duck(false); setTimeout(() => show(1), 500); };
+    if (item && item.kind === "spot" && !demo) return playSpot(item.v, finish);
+    const v = item ? item.v : null, id = v ? ytId(v.id || v.url || v) : null;
     $("vtitle").textContent = (v && v.title) || "Short videos from Dr. Taylor.";
-    music.duck(true); vb.classList.add("on");
-    const finish = () => { vb.classList.remove("on"); frame.innerHTML = ""; music.duck(false); setTimeout(() => show(1), 500); };
+    vb.classList.add("on");
     const ok = id && !demo ? await loadYT() : false;
-    if (!ok) { frame.innerHTML = `<div class="vmock">${id ? "Your Short plays here on the lobby TV." : "Add YouTube Shorts on the review page and they play here every " + everyMin() + " minutes."}</div>`; return setTimeout(finish, 8000); }
+    if (!ok) { frame.innerHTML = `<div class="vmock">${id ? "Your Short plays here on the lobby TV." : "Add YouTube Shorts on the review page and they play here every " + everyMin() + " minutes."}</div>`; return setTimeout(() => finish(false), 8000); }
     frame.innerHTML = `<div id="yt"></div>`;
-    let ended = false; const end = () => { if (!ended) { ended = true; finish(); } }; const guard = setTimeout(end, 95000);
+    let ended = false; const end = () => { if (!ended) { ended = true; finish(false); } }; const guard = setTimeout(end, 95000);
     new YT.Player("yt", { videoId: id, playerVars: { autoplay: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1 },
       events: { onStateChange: e => { if (e.data === YT.PlayerState.ENDED) { clearTimeout(guard); end(); } }, onError: () => { clearTimeout(guard); end(); } } });
   }
@@ -288,7 +304,7 @@
   $("c-next").onclick = () => { begin(); show(1); };
   $("c-music").onclick = e => { begin(); if (!music.audible) { music.wantOn(); music.start(); e.target.textContent = "Music: on"; } else e.target.textContent = "Music: " + (music.toggle() ? "on" : "off"); };
   sel.onchange = () => { themeLocked = true; applyTheme(+sel.value); pending = true; show(1); };
-  $("c-video").onclick = () => { begin(); videoBreak(!((DATA && DATA.videos) || []).length); };
+  $("c-video").onclick = () => { begin(); videoBreak(!breakQueue().length); };
   $("c-full").onclick = () => { const el = document.documentElement; (el.requestFullscreen ? el.requestFullscreen() : Promise.reject()).catch(() => {}); };
   addEventListener("keydown", e => { if (e.key === "ArrowRight") $("c-next").click(); if (e.key === "ArrowLeft") $("c-prev").click();
     if (e.key === "m") $("c-music").click(); if (e.key === "v") $("c-video").click(); if (e.key === "f") $("c-full").click(); });

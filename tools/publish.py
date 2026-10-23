@@ -75,7 +75,7 @@ def main():
         "version": a.week, "published": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
         "settings": {k: settings[k] for k in ("location", "videoEveryMinutes", "hours") if k in settings},
         "standing_crawler": settings.get("standing_crawler", []),
-        "videos": settings.get("videos", []), "backgrounds": settings.get("backgrounds", {}),
+        "videos": settings.get("videos", []), "backgrounds": settings.get("backgrounds", {}), "spots": settings.get("spots", []),
         "main": main_new + fill, "side": side_new + lib_side, "crawler": crawl_new,
     }
     json.dump(live, open(C / "live.json", "w"), indent=1, ensure_ascii=False)
