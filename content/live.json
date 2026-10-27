@@ -1,6 +1,6 @@
 {
- "version": "2026-W43",
- "published": "2026-10-23T04:32:52+00:00",
+ "version": "2026-W44",
+ "published": "2026-10-27T14:39:01+00:00",
  "settings": {
   "location": {
    "name": "Alexandria",
@@ -21,36 +21,49 @@
  "standing_crawler": [
   {
    "id": "s1",
-   "text": "Welcome to Mayfield Advanced Chiropractic",
-   "on": true
+   "on": true,
+   "text": "Welcome to Mayfield Advanced Chiropractic"
   },
   {
    "id": "s2",
-   "text": "We always accept new patients, and we thank you for your referrals",
-   "on": true
+   "on": true,
+   "text": "We always accept new patients, and we thank you for your referrals"
   },
   {
    "id": "s3",
-   "text": "New patients by referral only this month. Thank you for sending us the people you care about",
-   "on": false
+   "on": false,
+   "text": "New patients by referral only this month. Thank you for sending us the people you care about"
   },
   {
    "id": "s4",
-   "text": "Does your group need a speaker on health? Let the staff or Dr. Taylor know",
-   "on": true
+   "on": true,
+   "text": "Does your group need a speaker on health? Let the staff or Dr. Taylor know"
   },
   {
    "id": "s5",
-   "text": "Been in a car accident? Get checked even if you feel fine",
-   "on": true
+   "on": true,
+   "text": "Been in a car accident? Get checked even if you feel fine"
   },
   {
    "id": "s6",
-   "text": "Watch our short videos on YouTube: @mayfieldadvancedchiropractic",
-   "on": true
+   "on": true,
+   "text": "Watch our short videos on YouTube: @mayfieldadvancedchiropractic"
   }
  ],
- "videos": [],
+ "videos": [
+  "https://www.youtube.com/watch?v=jIrnSqQqjmk",
+  "https://www.youtube.com/watch?v=1NwVd3OCALA",
+  "https://www.youtube.com/watch?v=E7uGvddXtCc",
+  "https://www.youtube.com/watch?v=ZjGq1JfyxEs",
+  "https://www.youtube.com/shorts/ARx4s6PqCvk",
+  "https://www.youtube.com/shorts/IO6U8ZDxBPs",
+  "https://www.youtube.com/shorts/Tmi3lKI9kIE",
+  "https://www.youtube.com/shorts/jMCQkWr1tjI",
+  "https://www.youtube.com/shorts/GpJkwz43vMI",
+  "https://www.youtube.com/shorts/TjswJDyZjvo",
+  "https://www.youtube.com/shorts/XBVRWcjtvlI",
+  "https://www.youtube.com/shorts/lYzBvOd5VG8"
+ ],
  "backgrounds": {
   "1": [
    "media/jan-A-cypress-fog.mp4",
@@ -100,7 +113,99 @@
    "media/dec-B-levee-bonfires.mp4"
   ]
  },
+ "spots": [
+  {
+   "id": "shockwave-rpw-v3",
+   "file": "media/spots/shockwave-rpw-v3.mp4",
+   "title": "Radial Pressure Wave Therapy",
+   "on": true
+  }
+ ],
  "main": [
+  {
+   "body": "You stay dressed except for the sore spot, and you can walk out and go back to work.",
+   "category": "service",
+   "claim": "clinic",
+   "eyebrow": "Shockwave therapy",
+   "headline": "What a shockwave visit is like",
+   "id": "w44-001",
+   "layout": "steps",
+   "order": 1,
+   "qr": {
+    "label": "What to expect from shockwave",
+    "url": "https://mayfieldclinics.com/services/shockwave-therapy"
+   },
+   "service": "shockwave",
+   "steps": [
+    "We find the sore spot by pressing on it and testing how it moves.",
+    "We put gel on the skin and use a handpiece to send quick pressure pulses into the tissue.",
+    "We start low and adjust the strength as we go. Expect some discomfort for a few minutes.",
+    "We retest right after and plan a short series of visits."
+   ],
+   "why": "Demystifies the visit so tendon-pain patients ask whether shockwave fits them.",
+   "zone": "main",
+   "week": "2026-W44"
+  },
+  {
+   "body": "Your diaphragm is a dome-shaped muscle under your lungs. Each breath in, it tightens, flattens and moves down toward your belly.",
+   "card": "That push builds belly pressure, like a piston in a can. It helps brace your spine.",
+   "category": "bodyfacts",
+   "claim": "sourced",
+   "eyebrow": "Your amazing body",
+   "headline": "Your core has a piston inside it",
+   "id": "w44-002",
+   "layout": "split",
+   "order": 2,
+   "service": "bodyfacts",
+   "source": {
+    "title": "Cleveland Clinic: Diaphragm; Hodges et al., J Biomech, 2005",
+    "url": "https://doi.org/10.1016/j.jbiomech.2004.08.016"
+   },
+   "why": "Sets up breathing-as-core-training so patients ask about it in rehab.",
+   "zone": "main",
+   "week": "2026-W44"
+  },
+  {
+   "body": "Penn State had inactive adults 65 and older who had trouble walking do push-ups, chair stands, band rows and stair steps, 30 seconds each, daily for 12 weeks.",
+   "caption": "More chair stands in 30 seconds than a no-exercise group after 12 weeks. Balance and sit-to-stand speed improved too.",
+   "category": "news",
+   "claim": "sourced",
+   "dec": 1,
+   "eyebrow": "Health news",
+   "headline": "A 4-minute daily routine built strength after 65",
+   "id": "w44-003",
+   "layout": "bignum",
+   "num": 4.2,
+   "order": 3,
+   "service": "news",
+   "source": {
+    "title": "Penn State study, PLOS One, March 2026",
+    "url": "https://www.sciencedaily.com/releases/2026/10/261020085025.htm"
+   },
+   "unit": "more",
+   "why": "Gets older patients and their adult kids asking what a short home strength routine would look like for them.",
+   "zone": "main",
+   "week": "2026-W44"
+  },
+  {
+   "body": "It's a small, tender spot in a muscle that seems to stay switched on. It can send pain somewhere else, like your head or down your arm.",
+   "card": "A thin needle can make the spot twitch and ease. Evidence is mixed, best short term.",
+   "category": "service",
+   "claim": "opinion",
+   "eyebrow": "Dry needling",
+   "headline": "A trigger point is a tender knot in a muscle",
+   "id": "w44-004",
+   "layout": "split",
+   "order": 4,
+   "qr": {
+    "label": "How dry needling works",
+    "url": "https://mayfieldclinics.com/services/dry-needling"
+   },
+   "service": "dry_needling",
+   "why": "Explains referred pain so people with stubborn knots ask whether dry needling is worth trying.",
+   "zone": "main",
+   "week": "2026-W44"
+  },
   {
    "layout": "split",
    "service": "habits",
@@ -113,7 +218,7 @@
    "zone": "main",
    "id": "lib-001",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -134,7 +239,7 @@
    "zone": "main",
    "id": "lib-002",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -156,7 +261,7 @@
    "zone": "main",
    "id": "lib-003",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -177,7 +282,7 @@
    "zone": "main",
    "id": "lib-004",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -195,7 +300,7 @@
    "zone": "main",
    "id": "lib-005",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -213,7 +318,7 @@
    "zone": "main",
    "id": "lib-006",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -234,7 +339,7 @@
    "zone": "main",
    "id": "lib-007",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -252,7 +357,7 @@
    "zone": "main",
    "id": "lib-008",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -266,7 +371,7 @@
    "zone": "main",
    "id": "lib-009",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -285,7 +390,7 @@
    "zone": "main",
    "id": "lib-010",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -302,7 +407,7 @@
    "zone": "main",
    "id": "lib-011",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "scene",
@@ -315,7 +420,7 @@
    "zone": "main",
    "id": "lib-012",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -336,7 +441,7 @@
    "zone": "main",
    "id": "lib-013",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -353,7 +458,7 @@
    "zone": "main",
    "id": "lib-014",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -367,7 +472,7 @@
    "zone": "main",
    "id": "lib-015",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -381,7 +486,7 @@
    "zone": "main",
    "id": "lib-016",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -395,7 +500,7 @@
    "zone": "main",
    "id": "lib-017",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -412,7 +517,7 @@
    "zone": "main",
    "id": "lib-018",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -429,7 +534,7 @@
    "zone": "main",
    "id": "lib-019",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -446,7 +551,7 @@
    "zone": "main",
    "id": "lib-020",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "bignum",
@@ -467,7 +572,7 @@
    "zone": "main",
    "id": "lib-021",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "scene",
@@ -480,7 +585,7 @@
    "zone": "main",
    "id": "lib-022",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -494,7 +599,7 @@
    "zone": "main",
    "id": "lib-023",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -508,7 +613,7 @@
    "zone": "main",
    "id": "lib-024",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -522,7 +627,7 @@
    "zone": "main",
    "id": "lib-025",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "scene",
@@ -535,7 +640,7 @@
    "zone": "main",
    "id": "lib-026",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -549,7 +654,7 @@
    "zone": "main",
    "id": "lib-027",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   },
   {
    "layout": "split",
@@ -567,17 +672,62 @@
    "zone": "main",
    "id": "lib-028",
    "added": "2026-10-21",
-   "last_week": "2026-W43"
+   "last_week": "2026-W44"
   }
  ],
  "side": [],
- "crawler": [],
- "spots": [
+ "crawler": [
   {
-   "id": "shockwave-rpw-v3",
-   "file": "media/spots/shockwave-rpw-v3.mp4",
-   "title": "Radial Pressure Wave Therapy",
-   "on": true
+   "category": "crawler",
+   "claim": "sourced",
+   "id": "w44-037",
+   "layout": "line",
+   "line": "Clocks fall back Sunday, Nov 1, at 2 a.m. Go to bed at your usual time Saturday night",
+   "order": 37,
+   "service": "crawler",
+   "source": {
+    "title": "Old Farmer's Almanac",
+    "url": "https://www.almanac.com/daylight-saving-time-ends"
+   },
+   "zone": "crawler",
+   "week": "2026-W44"
+  },
+  {
+   "category": "crawler",
+   "claim": "none",
+   "id": "w44-038",
+   "layout": "line",
+   "line": "Happy Halloween from all of us. Carry a light and stay visible after dark Saturday",
+   "order": 38,
+   "service": "crawler",
+   "zone": "crawler",
+   "week": "2026-W44"
+  },
+  {
+   "category": "crawler",
+   "claim": "sourced",
+   "id": "w44-039",
+   "layout": "line",
+   "line": "Louisiana Pecan Festival in Colfax runs Nov 6 to 8. ",
+   "order": 39,
+   "service": "crawler",
+   "source": {
+    "title": "Louisiana Pecan Festival",
+    "url": "https://lapecanfest.com"
+   },
+   "zone": "crawler",
+   "week": "2026-W44"
+  },
+  {
+   "category": "crawler",
+   "claim": "none",
+   "id": "w44-040",
+   "layout": "line",
+   "line": "Heel pain that's worst with your first steps out of bed is worth a conversation with Dr. Taylor",
+   "order": 40,
+   "service": "crawler",
+   "zone": "crawler",
+   "week": "2026-W44"
   }
  ]
 }

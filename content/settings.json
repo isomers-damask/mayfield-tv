@@ -18,36 +18,49 @@
  "standing_crawler": [
   {
    "id": "s1",
-   "text": "Welcome to Mayfield Advanced Chiropractic",
-   "on": true
+   "on": true,
+   "text": "Welcome to Mayfield Advanced Chiropractic"
   },
   {
    "id": "s2",
-   "text": "We always accept new patients, and we thank you for your referrals",
-   "on": true
+   "on": true,
+   "text": "We always accept new patients, and we thank you for your referrals"
   },
   {
    "id": "s3",
-   "text": "New patients by referral only this month. Thank you for sending us the people you care about",
-   "on": false
+   "on": false,
+   "text": "New patients by referral only this month. Thank you for sending us the people you care about"
   },
   {
    "id": "s4",
-   "text": "Does your group need a speaker on health? Let the staff or Dr. Taylor know",
-   "on": true
+   "on": true,
+   "text": "Does your group need a speaker on health? Let the staff or Dr. Taylor know"
   },
   {
    "id": "s5",
-   "text": "Been in a car accident? Get checked even if you feel fine",
-   "on": true
+   "on": true,
+   "text": "Been in a car accident? Get checked even if you feel fine"
   },
   {
    "id": "s6",
-   "text": "Watch our short videos on YouTube: @mayfieldadvancedchiropractic",
-   "on": true
+   "on": true,
+   "text": "Watch our short videos on YouTube: @mayfieldadvancedchiropractic"
   }
  ],
- "videos": [],
+ "videos": [
+  "https://www.youtube.com/watch?v=jIrnSqQqjmk",
+  "https://www.youtube.com/watch?v=1NwVd3OCALA",
+  "https://www.youtube.com/watch?v=E7uGvddXtCc",
+  "https://www.youtube.com/watch?v=ZjGq1JfyxEs",
+  "https://www.youtube.com/shorts/ARx4s6PqCvk",
+  "https://www.youtube.com/shorts/IO6U8ZDxBPs",
+  "https://www.youtube.com/shorts/Tmi3lKI9kIE",
+  "https://www.youtube.com/shorts/jMCQkWr1tjI",
+  "https://www.youtube.com/shorts/GpJkwz43vMI",
+  "https://www.youtube.com/shorts/TjswJDyZjvo",
+  "https://www.youtube.com/shorts/XBVRWcjtvlI",
+  "https://www.youtube.com/shorts/lYzBvOd5VG8"
+ ],
  "backgrounds": {
   "1": [
    "media/jan-A-cypress-fog.mp4",
