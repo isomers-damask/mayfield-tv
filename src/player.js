@@ -210,7 +210,7 @@
     show(1);
   }
 
-  /* ---------- YouTube Shorts breaks ---------- */
+  /* ---------- video breaks: YouTube (Shorts portrait, regular videos landscape) and clinic spots ---------- */
   let nextVideoAt = Date.now() + 15 * 60000, vIdx = 0, ytReady = null;
   const everyMin = () => (DATA && DATA.settings && DATA.settings.videoEveryMinutes) || 15;
   const ytId = v => { const m = String(v).match(/(?:shorts\/|v=|youtu\.be\/|embed\/)([\w-]{11})/); return m ? m[1] : String(v).trim(); };
@@ -228,14 +228,23 @@
     for (let i = 0; i < n; i++) { if (spots[i]) out.push(spots[i]); if (shorts[i]) out.push(shorts[i]); }
     return out;
   }
-  function playSpot(sp, finish) {
-    const box = $("spot"), v = $("spotv"); let done = false;
-    const end = () => { if (done) return; done = true; box.classList.remove("on"); v.pause(); v.removeAttribute("src"); v.load(); finish(true); };
-    v.src = sp.file; v.currentTime = 0; v.muted = false; box.classList.add("on");
-    v.onended = end; v.onerror = end; setTimeout(end, 180000);
-    v.play().catch(() => { v.muted = true; v.play().catch(end); });
+  /* One break at a time: stopBreak() tears down whatever is playing (spot or YouTube) without advancing the slides. */
+  let curBreak = null;
+  function stopBreak() {
+    if (!curBreak) return; const c = curBreak; curBreak = null; c.stop();
   }
+  function playSpot(sp, finish) {
+    const box = $("spot"), v = $("spotv"); let done = false, guard;
+    const teardown = () => { done = true; clearTimeout(guard); v.onended = v.onerror = null; box.classList.remove("on"); v.pause(); v.removeAttribute("src"); v.load(); };
+    const end = () => { if (done) return; teardown(); curBreak = null; finish(true); };
+    curBreak = { stop: () => { if (!done) teardown(); } };
+    v.src = sp.file; v.currentTime = 0; v.muted = false; box.classList.add("on");
+    v.onended = end; v.onerror = end; guard = setTimeout(end, 180000);
+    v.play().catch(() => { if (done) return; v.muted = true; v.play().catch(end); });
+  }
+  const isPortrait = v => /\/shorts\//.test(String((v && (v.url || v.id)) || v)) || (v && v.portrait === true);
   async function videoBreak(demo) {
+    stopBreak();
     clearTimeout(timer); nextVideoAt = Date.now() + everyMin() * 60000;
     const q = breakQueue(), vb = $("vbreak"), frame = $("vframe");
     const item = q.length ? q[vIdx++ % q.length] : null;
@@ -243,14 +252,20 @@
     const finish = spot => { if (!spot) { vb.classList.remove("on"); frame.innerHTML = ""; } music.duck(false); setTimeout(() => show(1), 500); };
     if (item && item.kind === "spot" && !demo) return playSpot(item.v, finish);
     const v = item ? item.v : null, id = v ? ytId(v.id || v.url || v) : null;
-    $("vtitle").textContent = (v && v.title) || "Short videos from Dr. Taylor.";
+    $("vtitle").textContent = (v && v.title) || "Videos from Mayfield Advanced Chiropractic.";
+    vb.classList.toggle("wide", !!v && !isPortrait(v));
     vb.classList.add("on");
+    let ended = false, guard, yp = null;
+    const teardown = () => { ended = true; clearTimeout(guard); try { yp && yp.destroy(); } catch (e) {} vb.classList.remove("on"); frame.innerHTML = ""; };
+    const end = () => { if (ended) return; teardown(); curBreak = null; finish(false); };
+    curBreak = { stop: () => { if (!ended) { teardown(); music.duck(false); } } };
     const ok = id && !demo ? await loadYT() : false;
-    if (!ok) { frame.innerHTML = `<div class="vmock">${id ? "Your Short plays here on the lobby TV." : "Add YouTube Shorts on the review page and they play here every " + everyMin() + " minutes."}</div>`; return setTimeout(() => finish(false), 8000); }
+    if (ended) return;
+    if (!ok) { frame.innerHTML = `<div class="vmock">${id ? "Your video plays here on the lobby TV." : "Add YouTube videos on the review page and they play here every " + everyMin() + " minutes."}</div>`; guard = setTimeout(end, 8000); return; }
     frame.innerHTML = `<div id="yt"></div>`;
-    let ended = false; const end = () => { if (!ended) { ended = true; finish(false); } }; const guard = setTimeout(end, 95000);
-    new YT.Player("yt", { videoId: id, playerVars: { autoplay: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1 },
-      events: { onStateChange: e => { if (e.data === YT.PlayerState.ENDED) { clearTimeout(guard); end(); } }, onError: () => { clearTimeout(guard); end(); } } });
+    guard = setTimeout(end, isPortrait(v) ? 95000 : 600000);
+    yp = new YT.Player("yt", { videoId: id, playerVars: { autoplay: 1, controls: 0, rel: 0, playsinline: 1, modestbranding: 1 },
+      events: { onStateChange: e => { if (e.data === YT.PlayerState.ENDED) end(); }, onError: end } });
   }
 
   /* ---------- crawler ---------- */
@@ -300,8 +315,8 @@
   function poke() { ctr.classList.add("show"); clearTimeout(hideT); hideT = setTimeout(() => ctr.classList.remove("show"), 3500); }
   ["mousemove", "touchstart", "keydown"].forEach(e => addEventListener(e, poke, { passive: true }));
   $("go").onclick = begin;
-  $("c-prev").onclick = () => { begin(); show(-1); };
-  $("c-next").onclick = () => { begin(); show(1); };
+  $("c-prev").onclick = () => { begin(); stopBreak(); show(-1); };
+  $("c-next").onclick = () => { begin(); stopBreak(); show(1); };
   $("c-music").onclick = e => { begin(); if (!music.audible) { music.wantOn(); music.start(); e.target.textContent = "Music: on"; } else e.target.textContent = "Music: " + (music.toggle() ? "on" : "off"); };
   sel.onchange = () => { themeLocked = true; applyTheme(+sel.value); pending = true; show(1); };
   $("c-video").onclick = () => { begin(); videoBreak(!breakQueue().length); };

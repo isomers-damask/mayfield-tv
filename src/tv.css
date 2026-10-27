@@ -177,6 +177,13 @@
 .vside img { width: 360px; background: #fff; padding: 18px 22px; border-radius: 12px; }
 .vframe { width: 560px; height: 996px; background: #000; position: relative; }
 .vframe iframe, .vframe > div { width: 100%; height: 100%; border: 0; }
+/* Landscape YouTube: 16:9 frame fills the main area, caption strip above */
+.vbreak.wide { grid-template-columns: 1fr; grid-template-rows: 96px 900px; align-items: stretch; justify-items: center; }
+.vbreak.wide .vside:first-child { flex-direction: row; align-items: baseline; justify-content: center; gap: 28px; padding: 0; align-self: center; }
+.vbreak.wide .vside:first-child h2 { font-size: 40px; }
+.vbreak.wide .vside:first-child p { font-size: 28px; color: var(--muted); }
+.vbreak.wide .vside:last-child { display: none; }
+.vbreak.wide .vframe { width: 1600px; height: 900px; }
 .vmock { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; text-align: center; padding: 50px; color: var(--muted); font: 400 30px/1.4 var(--font-body); }
 
 @media (prefers-reduced-motion: reduce) {

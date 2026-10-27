@@ -1,7 +1,7 @@
 /* Keeps the lobby TV running when the clinic internet drops: serves the last good copy of the page, code,
    content and music. Network first, so a new publish shows up as soon as the connection is back.
    Video clips stream straight from the network (browsers need range requests for them). */
-const CACHE = "mactv-v2";
+const CACHE = "mactv-v3";
 const CORE = ["./", "index.html", "src/tv.css", "src/render.js", "src/player.js", "lib/qrcode.js", "content/live.json",
   "content/fallback.js", "content/music.json", "media/logo.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
